@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Product, ProductImage
+from .models import Product, ProductImage, Favorite
 from django.db import models
 
 
@@ -50,3 +50,10 @@ class ProductSerializer(serializers.ModelSerializer):
                 images.append(ProductImage(product=product, image=image))
             ProductImage.objects.bulk_create(images)
         return product
+
+
+class FavoriteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Favorite
+        fields = ('id', 'user', 'item', 'created_at')
+        read_only_fields = ['id', 'user', 'created_at']

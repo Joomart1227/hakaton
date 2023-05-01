@@ -4,6 +4,7 @@ from slugify import slugify
 from datetime import datetime
 
 
+
 User = get_user_model()
 
 class Product(models.Model):
@@ -36,3 +37,12 @@ class ProductImage(models.Model):
 
     def  __str__(self) -> str:
         return f'image to {self.product.title}'
+
+class Favorite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    item = models.ForeignKey(Product, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'user'
+        verbose_name_plural = 'items'
